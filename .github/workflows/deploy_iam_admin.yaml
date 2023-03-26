@@ -18,7 +18,7 @@ env:
 jobs:
   deploy-to-mmi-admin-environment:
     name: Deploy to mmi-admin
-    environment: mmi-admin
+    environment: management
     runs-on: ubuntu-latest
 
     steps:
