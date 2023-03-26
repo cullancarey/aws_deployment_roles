@@ -1,0 +1,43 @@
+name: Deploy-CDK-DeploymentRoleStack/Admin
+
+on:
+  workflow_dispatch:
+
+permissions:
+  id-token: write # This is required for requesting the JWT
+  contents: read  # This is required for actions/checkout
+
+env:
+  CDK_DEFAULT_REGION: us-east-2
+  GITHUBDEPLOYROLE: ${{ vars.GITHUBDEPLOYROLE }}
+  ACCOUNT_ID: ${{ vars.ACCOUNT_ID }}
+  ENVIRONMENT: "management"
+  CDK_DEPLOY_ACCOUNT: ${{ vars.ACCOUNT_ID }}
+  CDK_DEPLOY_REGION: ${{ vars.REGION }}
+
+jobs:
+  deploy-to-mmi-admin-environment:
+    name: Deploy to mmi-admin
+    environment: mmi-admin
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      # Configure AWS Creds mmi-admin
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          role-to-assume: arn:aws:iam::${{ env.ACCOUNT_ID }}:role/${{ env.GITHUBDEPLOYROLE }}
+          role-session-name: GithubActionsRoleManagement
+          aws-region: ${{ vars.REGION }}
+      - name: Change to cdk directory and Install dependencies
+        run: |
+          cd cdk
+          npm install -g aws-cdk
+          npm install
+          pip3 install -r requirements.txt
+      - name: Deploy Deployment Roles
+        run: |
+          cd cdk
+          cdk deploy DeploymentRolesStackSet --require-approval never

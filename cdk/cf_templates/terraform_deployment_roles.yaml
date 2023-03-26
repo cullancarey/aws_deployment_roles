@@ -1,0 +1,30 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Parameters:
+  GithubOIDCRole:
+    Type: String
+    Description: "Github OIDC Role that will assume the deployment role created here."
+Resources:
+  CDKDeployRole:
+    Type: 'AWS::IAM::Role'
+    Properties:
+      RoleName:
+        !Sub "TerraformDeploymentRole-${AWS::Region}-${AWS::AccountId}"
+      Description: "Role to deploy CDK resources."
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              AWS:
+                Ref: GithubOIDCRole
+            Action:
+              - 'sts:AssumeRole'
+      Path: /
+      Policies:
+        - PolicyName: "TerraformRoleDeployPolicy"
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action: '*'
+                Resource: "*"
