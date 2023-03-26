@@ -28,3 +28,7 @@ Resources:
               - Effect: Allow
                 Action: '*'
                 Resource: "*"
+            Condition:
+              StringLike:
+                sts:RoleSessionName:
+                  - 'GitHubActions'
