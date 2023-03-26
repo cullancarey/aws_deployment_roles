@@ -16,7 +16,8 @@ Resources:
           - Effect: Allow
             Principal:
               AWS:
-                Ref: GithubOIDCRole
+                Ref:
+                  !Sub '${GithubOIDCRole}/terraform-deployment-${AWS::Region}-${AWS::AccountId}'
             Action:
               - 'sts:AssumeRole'
       Path: /
