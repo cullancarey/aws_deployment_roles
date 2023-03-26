@@ -16,13 +16,17 @@ Resources:
           - Effect: Allow
             Principal:
               AWS:
-                Ref: GithubOIDCRole
+                Federated:
+                  - 'arn:aws:iam::362055466028:oidc-provider/token.actions.githubusercontent.com'
             Action:
               - 'sts:AssumeRoleWithWebIdentity'
             Condition:
               StringLike:
-                sts:RoleSessionName:
-                  - 'GitHubActions'
+                token.actions.githubusercontent.com:sub:
+                  - "repo:cullancarey/website:*"
+              StringEquals:
+                token.actions.githubusercontent.com:aud:
+                  - 'sts.amazonaws.com'
       Path: /
       Policies:
         - PolicyName: "TerraformRoleDeployPolicy"
