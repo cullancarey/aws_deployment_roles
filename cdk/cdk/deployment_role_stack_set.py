@@ -18,7 +18,7 @@ class DeploymentRolesStackSet(Stack):
 
         # github_role = iam.Role.from_role_name(self, "github_deploy_role", role_name=github_oidc_role)
 
-        github_oidc_role_arn = f"arn:aws:iam::{account_id}:role/{github_oidc_role}"
+        github_oidc_role_arn = f"arn:aws:sts::{account_id}:assumed-role/{github_oidc_role}"
 
 
         cloudformation.CfnStackSet(self, "CFDeployStackSet",
