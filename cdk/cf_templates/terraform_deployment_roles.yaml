@@ -19,6 +19,10 @@ Resources:
                 Ref: GithubOIDCRole
             Action:
               - 'sts:AssumeRoleWithWebIdentity'
+            Condition:
+              StringLike:
+                sts:RoleSessionName:
+                  - 'GitHubActions'
       Path: /
       Policies:
         - PolicyName: "TerraformRoleDeployPolicy"
@@ -28,7 +32,3 @@ Resources:
               - Effect: Allow
                 Action: '*'
                 Resource: "*"
-            Condition:
-              StringLike:
-                sts:RoleSessionName:
-                  - 'GitHubActions'
