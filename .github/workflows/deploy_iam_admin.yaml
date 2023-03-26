@@ -1,7 +1,8 @@
 name: Deploy-CDK-DeploymentRoleStack/Admin
 
 on:
-  workflow_dispatch:
+  push:
+    - main
 
 permissions:
   id-token: write # This is required for requesting the JWT
