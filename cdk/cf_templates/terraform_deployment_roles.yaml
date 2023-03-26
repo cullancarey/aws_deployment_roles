@@ -18,7 +18,7 @@ Resources:
               AWS:
                 Ref: GithubOIDCRole
             Action:
-              - 'sts:AssumeRoleWithWebIdentity'
+              - 'sts:AssumeRole'
       Path: /
       Policies:
         - PolicyName: "TerraformRoleDeployPolicy"
