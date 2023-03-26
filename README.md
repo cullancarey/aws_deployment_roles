@@ -20,7 +20,7 @@ The description parameter provides a description of the StackSet. The auto_deplo
 Finally, the template_url parameter is used to specify the URL of the CloudFormation template that is used to create the StackSet.
 
 ## Deployment Roles Cloudformation Template
-This is an AWS CloudFormation template written in YAML format seen [here](./cdk/cd_templates/terraform_deployment_roles.yaml). It creates an IAM role for deploying CDK (AWS Cloud Development Kit) resources. The template accepts one parameter GithubOIDCRole, which is the Github OIDC Role that will assume the deployment role created in this template.
+This is an AWS CloudFormation template written in YAML format seen [here](./cdk/cf_templates/terraform_deployment_roles.yaml). It creates an IAM role for deploying CDK (AWS Cloud Development Kit) resources. The template accepts one parameter GithubOIDCRole, which is the Github OIDC Role that will assume the deployment role created in this template.
 
 The Resources section of the template defines the CDKDeployRole IAM role. It has a RoleName that is generated using the AWS::Region and AWS::AccountId CloudFormation intrinsic functions. The role is created with an AssumeRolePolicyDocument that only allows the specified GithubOIDCRole to assume the role. The role's policy TerraformRoleDeployPolicy allows all actions on all resources, as specified by the wildcard * in the Resource section. I plan to update this in future iterations to be more secure.
 
