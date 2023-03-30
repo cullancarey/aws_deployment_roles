@@ -33,20 +33,22 @@ jobs:
           role-to-assume: arn:aws:iam::${{ env.ACCOUNT_ID }}:role/${{ env.GITHUBDEPLOYROLE }}
           role-session-name: GithubActionsRoleManagement
           aws-region: ${{ vars.REGION }}
-      - name: Install CDK
+      - name: Cache npm
         uses: actions/setup-node@v3
         with:
           node-version: 16
           cache: 'npm'
+      - name: Install CDK
         run: |
           cd cdk
           npm install -g aws-cdk
           npm install
-      - name: Install requirements
+      - name: Cache pip
         uses: actions/setup-python@v4
         with:
           python-version: '3.9'
           cache: 'pip' # caching pip dependencies
+      - name: Install requirements
         run: |
           cd cdk
           pip install -r requirements.txt
