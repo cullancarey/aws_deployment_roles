@@ -16,6 +16,10 @@ class DeploymentRolesStackSet(Stack):
             path="./cf_templates/terraform_deployment_roles.yaml"
         )
 
+        # github_role = iam.Role.from_role_name(self, "github_deploy_role", role_name=github_oidc_role)
+
+        repos = ["repo:cullancarey/aws_deployment_roles:*","repo:cullancarey/website:*","repo:cullancarey/apple_update_notification:*"]
+
 
         cloudformation.CfnStackSet(self, "CFDeployStackSet",
             permission_model="SERVICE_MANAGED",
@@ -29,6 +33,10 @@ class DeploymentRolesStackSet(Stack):
             managed_execution={
           "Active" : True
         },
+            parameters=[cloudformation.CfnStackSet.ParameterProperty(
+            parameter_key="SubjectClaimFilters",
+            parameter_value=repos
+        )],
             stack_instances_group=[cloudformation.CfnStackSet.StackInstancesProperty(
                 deployment_targets=cloudformation.CfnStackSet.DeploymentTargetsProperty(
                     account_filter_type="INTERSECTION",
