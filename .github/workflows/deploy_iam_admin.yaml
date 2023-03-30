@@ -34,7 +34,7 @@ jobs:
           role-session-name: GithubActionsRoleManagement
           aws-region: ${{ vars.REGION }}
       - name: Install CDK
-      - uses: actions/setup-node@v3
+        uses: actions/setup-node@v3
         with:
           node-version: 16
           cache: 'npm'
@@ -43,11 +43,11 @@ jobs:
           npm install -g aws-cdk
           npm install
       - name: Install requirements
-      - uses: actions/setup-python@v4
+        uses: actions/setup-python@v4
         with:
           python-version: '3.9'
           cache: 'pip' # caching pip dependencies
-      - run: |
+        run: |
           cd cdk
           pip install -r requirements.txt
       - name: Deploy Deployment Roles
