@@ -26,13 +26,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Cache node modules
-        id: cache-npm
-        uses: actions/cache@v3
-        with:
-          # npm cache files are stored in `~/.npm` on Linux/macOS
-          path: ~/.npm
-          key : npm-${{ hashFiles('**/requirements.txt') }}
       # Configure AWS Creds management
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v2
@@ -41,11 +34,21 @@ jobs:
           role-session-name: GithubActionsRoleManagement
           aws-region: ${{ vars.REGION }}
       - name: Change to cdk directory and Install dependencies
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'npm'
         run: |
           cd cdk
           npm install -g aws-cdk
           npm install
-          pip3 install -r requirements.txt
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+          cache: 'pip' # caching pip dependencies
+      - run: |
+          cd cdk
+          pip install -r requirements.txt
       - name: Deploy Deployment Roles
         run: |
           cd cdk
