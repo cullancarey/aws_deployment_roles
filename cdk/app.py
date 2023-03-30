@@ -34,7 +34,6 @@ DeploymentRolesStackSet(
     region=region,
     account_names=account_names,
     org_unit_ids=org_unit_ids,
-    github_oidc_role=github_oidc_role,
     description=f"Stackset used for deploying Terraform deployment roles to memeber accounts",
     env=env
 )
