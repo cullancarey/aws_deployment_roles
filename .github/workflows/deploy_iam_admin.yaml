@@ -33,7 +33,7 @@ jobs:
           role-to-assume: arn:aws:iam::${{ env.ACCOUNT_ID }}:role/${{ env.GITHUBDEPLOYROLE }}
           role-session-name: GithubActionsRoleManagement
           aws-region: ${{ vars.REGION }}
-      - name: Change to cdk directory and Install dependencies
+      - name: Install CDK
       - uses: actions/setup-node@v3
         with:
           node-version: 16
@@ -42,6 +42,7 @@ jobs:
           cd cdk
           npm install -g aws-cdk
           npm install
+      - name: Install requirements
       - uses: actions/setup-python@v4
         with:
           python-version: '3.9'
