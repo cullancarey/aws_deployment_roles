@@ -33,26 +33,36 @@ jobs:
           role-to-assume: arn:aws:iam::${{ env.ACCOUNT_ID }}:role/${{ env.GITHUBDEPLOYROLE }}
           role-session-name: GithubActionsRoleManagement
           aws-region: ${{ vars.REGION }}
+          
       - name: Cache npm
         uses: actions/setup-node@v3
         with:
           node-version: 16
           cache: 'npm'
+
       - name: Install CDK
         run: |
           cd cdk
           npm install -g aws-cdk
           npm install
+
       - name: Cache pip
         uses: actions/setup-python@v4
         with:
           python-version: '3.9'
           cache: 'pip' # caching pip dependencies
+
       - name: Install requirements
         run: |
           cd cdk
           pip install -r requirements.txt
+
+      - name: CDK Synth
+        run: |
+          cd cdk
+          cdk synth
+
       - name: Deploy Deployment Roles
         run: |
           cd cdk
-          cdk deploy DeploymentRolesStackSet --require-approval never
+          cdk deploy --app 'cdk.out/' DeploymentRolesStackSet --require-approval never
