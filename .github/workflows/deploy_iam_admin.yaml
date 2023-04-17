@@ -22,7 +22,7 @@ jobs:
     environment: management
     runs-on: ubuntu-latest
     env:
-      ENVIRONMENT: ${{ inputs.environment }}
+      ENVIRONMENT: ${{ github.environment }}
 
     steps:
       - name: Checkout
