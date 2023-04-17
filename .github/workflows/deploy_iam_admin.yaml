@@ -13,6 +13,7 @@ env:
   CDK_DEFAULT_REGION: us-east-2
   GITHUBDEPLOYROLE: ${{ vars.GITHUBDEPLOYROLE }}
   ACCOUNT_ID: ${{ vars.ACCOUNT_ID }}
+  ENVIRONMENT: "management"
   CDK_DEPLOY_ACCOUNT: ${{ vars.ACCOUNT_ID }}
   CDK_DEPLOY_REGION: ${{ vars.REGION }}
 
@@ -21,8 +22,6 @@ jobs:
     name: Deploy to management
     environment: management
     runs-on: ubuntu-latest
-    env:
-      ENVIRONMENT: ${{ github.environment }}
 
     steps:
       - name: Checkout
