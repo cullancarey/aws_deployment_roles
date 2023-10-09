@@ -29,7 +29,7 @@ class DeploymentRolesStackSet(Stack):
 
         # github_role = iam.Role.from_role_name(self, "github_deploy_role", role_name=github_oidc_role)
 
-        repos = "repo:cullancarey/aws_deployment_roles:*,repo:cullancarey/website:*,repo:cullancarey/apple_update_notification:*,repo:cullancarey/website_cdk:*,repo:cullancarey/ArticlePublisher:*"
+        repos = "repo:cullancarey/aws_deployment_roles:*,repo:cullancarey/website:*,repo:cullancarey/apple_update_notification:*,repo:cullancarey/website_cdk:*,repo:cullancarey/ArticlePublisher:*,repo:cullancarey/youtube_video_generator:*"
 
         cloudformation.CfnStackSet(
             self,
