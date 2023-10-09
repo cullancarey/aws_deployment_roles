@@ -12,16 +12,14 @@ print(os.environ.get("ENVIRONMENT"))
 github_oidc_role = os.environ.get("GITHUBDEPLOYROLE")
 account = os.environ.get("CDK_DEPLOY_ACCOUNT", os.environ["CDK_DEFAULT_ACCOUNT"])
 region = os.environ.get("CDK_DEPLOY_REGION", os.environ["CDK_DEFAULT_REGION"])
-account_names = ["693590665244", "045107234435", "651295191577"]
+account_names = ["693590665244", "045107234435", "651295191577", "151676528673"]
 org_unit_ids = ["ou-u85y-akfavhg4", "ou-u85y-sfao42dv"]
 
 default_tags = {
     "stack_name": "DeploymentRolesStackSet",
 }
 
-env = Environment(
-    account=account,
-    region=region)
+env = Environment(account=account, region=region)
 
 
 for key, value in default_tags.items():
@@ -35,7 +33,7 @@ DeploymentRolesStackSet(
     account_names=account_names,
     org_unit_ids=org_unit_ids,
     description=f"Stackset used for deploying Terraform deployment roles to memeber accounts",
-    env=env
+    env=env,
 )
 
 app.synth()
