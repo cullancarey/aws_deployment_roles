@@ -33,9 +33,11 @@ Resources:
       Url: https://token.actions.githubusercontent.com
       ThumbprintList: !Ref GithubActionsThumbprint
       ClientIdList: !Ref AudienceList
+
   GitHubActionsServiceRole:
     Type: AWS::IAM::Role
     Properties:
+      MaxSessionDuration: 3600
       RoleName:
         !Sub "GitHubActionsDeploymentRole-${AWS::Region}-${AWS::AccountId}"
       Path: /

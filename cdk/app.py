@@ -12,7 +12,7 @@ print(os.environ.get("ENVIRONMENT"))
 github_oidc_role = os.environ.get("GITHUBDEPLOYROLE")
 account = os.environ.get("CDK_DEPLOY_ACCOUNT", os.environ["CDK_DEFAULT_ACCOUNT"])
 region = os.environ.get("CDK_DEPLOY_REGION", os.environ["CDK_DEFAULT_REGION"])
-account_names = ["693590665244", "045107234435", "651295191577", "151676528673"]
+account_names = ["693590665244", "045107234435", "651295191577"]
 org_unit_ids = ["ou-u85y-akfavhg4", "ou-u85y-sfao42dv"]
 
 default_tags = {
