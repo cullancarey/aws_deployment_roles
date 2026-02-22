@@ -1,9 +1,7 @@
 from aws_cdk import (
     Stack,
-    aws_s3 as s3,
     aws_s3_assets as s3_assets,
     aws_cloudformation as cloudformation,
-    aws_iam as iam,
 )
 from constructs import Construct
 
@@ -24,7 +22,7 @@ class DeploymentRolesStackSet(Stack):
         cftemplate = s3_assets.Asset(
             self,
             "CloudformationTemplate",
-            path="./cf_templates/terraform_deployment_roles.yaml",
+            path="./cf_templates/deployment_roles.yaml",
         )
 
         # github_role = iam.Role.from_role_name(self, "github_deploy_role", role_name=github_oidc_role)

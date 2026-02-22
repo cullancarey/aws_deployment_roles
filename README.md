@@ -1,5 +1,7 @@
 # aws_deployment_roles
-This repo holds CDK code which creates a Cloudformation stackset to deploy the terraform deployment roles used for my websites deployment. View more information about my website in the [website](https://github.com/cullancarey/website) repository. 
+This repo holds CloudFormation templates and CDK code for creating GitHub Actions OIDC deployment roles. The roles have been refactored from a single overprivileged role to two specialized roles: one for Terraform deployments and one for CDK deployments, following the principle of least privilege.
+
+View more information about my website deployment in the [website](https://github.com/cullancarey/website) repository. 
 
 ## Architecture
 The below image outlines the architecture design for this stackset and the deployment of the website utilizing the deployment roles. This model utiilizes a centralized deployment architecture. 
@@ -7,7 +9,7 @@ The below image outlines the architecture design for this stackset and the deplo
 ![image](./website_automation_arch.png)
 
 ## CDK StackSet
-This is a Python code (seen [here](./cdk/cdk/deployment_role_stack_set.py) using the AWS Cloud Development Kit (CDK) to create an AWS CloudFormation StackSet for deploying Terraform deploy roles in member accounts of an organization.
+This is a Python code (seen [here](./cdk/cdk/deployment_role_stack_set.py)) using the AWS Cloud Development Kit (CDK) to create an AWS CloudFormation StackSet for deploying Terraform deploy roles in member accounts of an organization.
 
 creates a StackSet that will deploy a set of IAM roles to a list of accounts. The StackSet is created using the AWS CDK, which is a set of tools that allows you to create and manage AWS resources using a familiar programming language.
 
@@ -29,27 +31,38 @@ The CFDeployStackSet stack is configured with the following properties:
 
 The CFDeployStackSet stack will deploy the IAM roles to the accounts that are specified in the account_names and org_unit_ids lists. The roles will be deployed to the specified regions.
 
-## Deployment Roles Cloudformation Template
-The CloudFormation template creates an OIDC provider and role for use with GitHub Actions. The OIDC provider is used to authenticate Github Actions automations, and the role is used to grant those users permissions to resources in AWS.
+## Deployment Roles CloudFormation Template
+The CloudFormation template creates an OIDC provider and **two specialized roles** for use with GitHub Actions. This replaces the previous single role that had overly broad `Action: '*'` permissions.
+
+### Refactored Architecture
+- **GitHubActionsTerraformDeploymentRole**: Specific permissions for Terraform deployments based on actual usage analysis
+- **GitHubActionsCDKDeploymentRole**: Minimal permissions that delegate to CDK bootstrap roles
 
 The template creates the following resources:
 
-An OIDC provider, which is used to authenticate Github Actions automations. The provider is configured with the following settings:
-- The URL of the GitHub Actions OIDC endpoint
+**OIDC Provider** - Used to authenticate GitHub Actions automations:
+- The URL of the GitHub Actions OIDC endpoint  
 - A list of thumbprints for GitHub Actions tokens
 - A list of allowed audiences for the tokens
-A service role, which is used to grant Github Actions automations permissions to resources in AWS. The role is configured with the following settings:
-- The name of the role
-- The path of the role
-- A policy that grants Github Actions automations the following permissions:
-	- sts:AssumeRoleWithWebIdentity
-	- * on *
-- A policy that grants the service role the following permissions:
-    - * on *
 
-The template also includes the following descriptions:
+**Terraform Deployment Role** - Grants GitHub Actions the following permissions based on CloudTrail analysis:
+- DynamoDB operations for state locking (`DescribeStream`, `DescribeTable`, etc.)
+- KMS encryption/decryption for state files
+- CloudWatch Logs for Terraform output
+- SSM Parameter Store access for configuration
+- ECR operations for container deployments
+- EventBridge, Lambda, S3, and IAM read operations
+- STS operations for role assumption
 
-    Description: Creates and OIDC provider and role for use with GitHub Actions.
-    Description: Service Role for use in GitHub Actions
+**CDK Deployment Role** - Minimal permissions that delegate to CDK bootstrap infrastructure:
+- `sts:AssumeRole` only on `arn:aws:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-*`
+- `sts:GetCallerIdentity` for identity verification
+- All deployment permissions are handled by CDK's own managed roles
 
-The template is used to create an OIDC provider and role for use with GitHub Actions. The provider and role can then be used to authenticate GitHub Actions automations and grant them permissions to resources in AWS.
+### Security Improvements
+- **Principle of Least Privilege**: Each role only has necessary permissions
+- **Separation of Concerns**: Terraform and CDK deployments are isolated  
+- **Reduced Attack Surface**: CDK role has minimal direct permissions
+- **Better Auditing**: Cleaner CloudTrail logs showing deployment method usage
+
+See [REFACTORING_GUIDE.md](./REFACTORING_GUIDE.md) for detailed migration instructions.
