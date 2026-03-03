@@ -134,3 +134,5 @@ node_modules/
 *.bkp
 *.dtmp
 *DS_Store*
+
+cdk.out/
