@@ -206,7 +206,11 @@ Resources:
               - Effect: Allow
                 Action:
                   - "sts:AssumeRole"
-                Resource: !Sub "arn:aws:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-*"
+                Resource:
+                  - !Sub "arn:aws:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-*"
+                  - !Sub "arn:aws:iam::${AWS::AccountId}:role/cdk-hnb659fds-file-publishing-role-${AWS::AccountId}-*"
+                  - !Sub "arn:aws:iam::${AWS::AccountId}:role/cdk-hnb659fds-image-publishing-role-${AWS::AccountId}-*"
+                  - !Sub "arn:aws:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-*"
               
               # Basic STS permissions for identity verification
               - Effect: Allow
