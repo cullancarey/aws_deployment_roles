@@ -171,6 +171,7 @@ Resources:
                   - "s3:PutObject"
                   - "s3:DeleteObject"
                   - "s3:ListBucket"
+                  - "s3:GetLifecycleConfiguration"
                 Resource: "*"
               
               # STS permissions for role assumption and identity
