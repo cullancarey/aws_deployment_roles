@@ -136,17 +136,17 @@ Resources:
               # Lambda permissions
               - Effect: Allow
                 Action:
-                  - "lambda:DeleteLayerVersion20181031"
-                  - "lambda:GetEventSourceMapping20150331"
-                  - "lambda:GetFunction20150331v2"
+                  - "lambda:DeleteLayerVersion"
+                  - "lambda:GetEventSourceMapping"
+                  - "lambda:GetFunction"
                   - "lambda:GetFunctionCodeSigningConfig"
-                  - "lambda:GetLayerVersion20181031"
-                  - "lambda:GetPolicy20150331v2"
-                  - "lambda:ListTags20170331"
-                  - "lambda:ListVersionsByFunction20150331"
-                  - "lambda:PublishLayerVersion20181031"
-                  - "lambda:TagResource20170331v2"
-                  - "lambda:UpdateFunctionConfiguration20150331v2"
+                  - "lambda:GetLayerVersion"
+                  - "lambda:GetPolicy"
+                  - "lambda:ListTags"
+                  - "lambda:ListVersionsByFunction"
+                  - "lambda:PublishLayerVersion"
+                  - "lambda:TagResource"
+                  - "lambda:UpdateFunctionConfiguration"
                 Resource: "*"
               
               # S3 permissions
