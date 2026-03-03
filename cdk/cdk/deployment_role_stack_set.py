@@ -27,7 +27,7 @@ class DeploymentRolesStackSet(Stack):
 
         # github_role = iam.Role.from_role_name(self, "github_deploy_role", role_name=github_oidc_role)
 
-        repos = "repo:cullancarey/aws_deployment_roles:ref:refs/heads/main,repo:cullancarey/apple_update_notification:ref:refs/heads/main,repo:cullancarey/apple_update_notification:ref:refs/heads/develop,repo:cullancarey/PortfolioWebsite:ref:refs/heads/main,repo:cullancarey/PortfolioWebsite:ref:refs/heads/develop,repo:cullancarey/youtube_video_generator:ref:refs/heads/main,repo:cullancarey/NumberGuessingGame:ref:refs/heads/main,repo:cullancarey/NumberGuessingGame:ref:refs/heads/develop"
+        repos = "repo:cullancarey/aws_deployment_roles:*,repo:cullancarey/apple_update_notification:*q,repo:cullancarey/PortfolioWebsite:*,repo:cullancarey/youtube_video_generator:*,repo:cullancarey/NumberGuessingGame:*"
 
         cloudformation.CfnStackSet(
             self,
