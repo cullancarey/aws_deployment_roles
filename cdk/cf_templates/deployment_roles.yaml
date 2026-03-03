@@ -218,6 +218,8 @@ Resources:
                   - "s3:GetEncryptionConfiguration"
                   - "s3:GetBucketPublicAccessBlock"
                   - "s3:GetObjectTagging"
+                  - "s3:PutObjectTagging"
+                  - "s3:DeleteObjectTagging"
                 Resource: "*"
               
               # STS permissions for role assumption and identity
