@@ -1,0 +1,14 @@
+{
+    "management": {
+        "account_id": "362055466028",
+        "region": "us-east-2",
+        "stack_set_account_ids": "693590665244,045107234435,651295191577",
+        "stack_set_org_unit_ids": "ou-u85y-akfavhg4,ou-u85y-sfao42dv",
+        "organization_audit": {
+            "cloudtrail_trail_name": "org-management-trail",
+            "cloudtrail_logs_bucket_name": "org-cloudtrail-logs-362055466028",
+            "athena_query_results_bucket_name": "aws-athena-query-results-362055466028-us-east-2",
+            "organization_id": "o-lyy8l75v41"
+        }
+    }
+}

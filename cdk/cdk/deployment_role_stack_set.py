@@ -13,7 +13,7 @@ class DeploymentRolesStackSet(Stack):
         construct_id: str,
         account_id: str,
         region: str,
-        account_names: list,
+        account_ids: list,
         org_unit_ids: list,
         **kwargs
     ) -> None:
@@ -47,7 +47,7 @@ class DeploymentRolesStackSet(Stack):
                 cloudformation.CfnStackSet.StackInstancesProperty(
                     deployment_targets=cloudformation.CfnStackSet.DeploymentTargetsProperty(
                         account_filter_type="INTERSECTION",
-                        accounts=account_names,
+                        accounts=account_ids,
                         organizational_unit_ids=org_unit_ids,
                     ),
                     regions=[region],

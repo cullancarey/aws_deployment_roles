@@ -136,3 +136,5 @@ node_modules/
 *DS_Store*
 
 cdk.out/
+
+aws_resource_output/
