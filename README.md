@@ -1,6 +1,18 @@
 # aws_deployment_roles
 This repo holds CloudFormation templates and CDK code for creating GitHub Actions OIDC deployment roles. The roles have been refactored from a single overprivileged role to two specialized roles: one for Terraform deployments and one for CDK deployments, following the principle of least privilege.
 
+## Local Setup
+The CDK app under `cdk/` now uses `uv` for Python dependency management.
+
+From the `cdk/` directory:
+
+```bash
+uv sync
+npx cdk synth
+```
+
+Because `cdk/cdk.json` runs the app through `uv`, standard CDK commands will automatically use the managed Python environment after `uv sync` completes.
+
 View more information about my website deployment in the [website](https://github.com/cullancarey/website) repository. 
 
 ## Architecture

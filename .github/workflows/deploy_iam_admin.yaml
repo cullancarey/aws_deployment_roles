@@ -38,8 +38,12 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.13"
-          cache: pip
-          cache-dependency-path: cdk/requirements.txt
+
+      - name: Setup uv
+        uses: astral-sh/setup-uv@v8
+        with:
+          enable-cache: true
+          cache-dependency-glob: cdk/uv.lock
       # Configure AWS Creds management
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v6
@@ -52,13 +56,13 @@ jobs:
         working-directory: cdk
         run: npm ci
 
-      - name: Install requirements
+      - name: Sync Python dependencies
         working-directory: cdk
-        run: pip install -r requirements.txt
+        run: uv sync --frozen
 
       - name: CDK Synth
         working-directory: cdk
-        run: npx cdk synth
+        run: npx cdk synth --app "uv run python app.py"
 
       - name: Deploy CDK Stacks
         working-directory: cdk
