@@ -20,7 +20,7 @@
             ],
             "admin_permission_set_name": "AdministratorAccess",
             "legacy_region_policy_id": "p-l9cqcts8",
-            "legacy_region_migration_phase": "observe",
+            "legacy_region_migration_phase": "cutover",
             "full_aws_access_policy_id": "p-FullAWSAccess",
             "full_aws_access_detach_target_ids": [
                 "151676528673",
