@@ -1,0 +1,10 @@
+--------------------------------------------------------------------------------------------------------
+|                                             ListPolicies                                             |
++-----------------+------------------------------------------------+--------------------------+--------+
+|  p-FullAWSAccess|  FullAWSAccess                                 |  SERVICE_CONTROL_POLICY  |  True  |
+|  p-czsh25pr     |  Deny-Root-User-Day-To-Day-Access              |  SERVICE_CONTROL_POLICY  |  False |
+|  p-ewuc04np     |  Protect-Organization-Audit-Resources          |  SERVICE_CONTROL_POLICY  |  False |
+|  p-jjcx5w93     |  Deny-Outside-Approved-Regions                 |  SERVICE_CONTROL_POLICY  |  False |
+|  p-kpx3ijsu     |  Protect-Organization-Membership-And-Policies  |  SERVICE_CONTROL_POLICY  |  False |
+|  p-l9cqcts8     |  Deny-Calls-Outside-USA                        |  SERVICE_CONTROL_POLICY  |  False |
++-----------------+------------------------------------------------+--------------------------+--------+

@@ -1,0 +1,100 @@
+{
+  "service_control_policies": [
+    {
+      "id": "p-FullAWSAccess",
+      "policy": {
+        "Policy": {
+          "PolicySummary": {
+            "Id": "p-FullAWSAccess",
+            "Arn": "arn:aws:organizations::aws:policy/service_control_policy/p-FullAWSAccess",
+            "Name": "FullAWSAccess",
+            "Description": "Allows access to every operation",
+            "Type": "SERVICE_CONTROL_POLICY",
+            "AwsManaged": true
+          },
+          "Content": "{\n  \"Version\": \"2012-10-17\",\n  \"Statement\": [\n    {\n      \"Effect\": \"Allow\",\n      \"Action\": \"*\",\n      \"Resource\": \"*\"\n    }\n  ]\n}"
+        }
+      }
+    },
+    {
+      "id": "p-czsh25pr",
+      "policy": {
+        "Policy": {
+          "PolicySummary": {
+            "Id": "p-czsh25pr",
+            "Arn": "arn:aws:organizations::362055466028:policy/o-lyy8l75v41/service_control_policy/p-czsh25pr",
+            "Name": "Deny-Root-User-Day-To-Day-Access",
+            "Description": "Deny routine AWS API usage by the root user while preserving a small set of billing and support workflows.",
+            "Type": "SERVICE_CONTROL_POLICY",
+            "AwsManaged": false
+          },
+          "Content": "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Condition\":{\"ArnLike\":{\"aws:PrincipalArn\":\"arn:aws:iam::*:root\"}},\"Resource\":\"*\",\"Effect\":\"Deny\",\"NotAction\":[\"account:Get*\",\"account:List*\",\"aws-portal:View*\",\"billing:*\",\"budgets:ViewBudget\",\"ce:Get*\",\"ce:List*\",\"payments:*\",\"support:*\",\"tax:*\"],\"Sid\":\"DenyRootUserRoutineAccess\"}]}"
+        }
+      }
+    },
+    {
+      "id": "p-ewuc04np",
+      "policy": {
+        "Policy": {
+          "PolicySummary": {
+            "Id": "p-ewuc04np",
+            "Arn": "arn:aws:organizations::362055466028:policy/o-lyy8l75v41/service_control_policy/p-ewuc04np",
+            "Name": "Protect-Organization-Audit-Resources",
+            "Description": "Prevent changes to organization CloudTrail resources and log storage except through the designated administrator and deployment paths.",
+            "Type": "SERVICE_CONTROL_POLICY",
+            "AwsManaged": false
+          },
+          "Content": "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Condition\":{\"ArnNotLike\":{\"aws:PrincipalArn\":[\"arn:aws:iam::*:role/aws-reserved/sso.amazonaws.com/AWSReservedSSO_AdministratorAccess_*\",\"arn:aws:iam::*:role/aws-reserved/sso.amazonaws.com/*/AWSReservedSSO_AdministratorAccess_*\",\"arn:aws:iam::*:role/cdk-hnb659fds-*\",\"arn:aws:iam::*:role/GitHubActionsCDKDeploymentRole-*\",\"arn:aws:iam::*:role/GitHubActionsTerraformDeploymentRole-*\"]}},\"Action\":[\"cloudtrail:AddTags\",\"cloudtrail:DeleteTrail\",\"cloudtrail:PutEventSelectors\",\"cloudtrail:PutInsightSelectors\",\"cloudtrail:PutResourcePolicy\",\"cloudtrail:RemoveTags\",\"cloudtrail:StopLogging\",\"cloudtrail:UpdateTrail\"],\"Resource\":\"arn:aws:cloudtrail:*:362055466028:trail/org-management-trail\",\"Effect\":\"Deny\",\"Sid\":\"ProtectOrganizationTrail\"},{\"Condition\":{\"ArnNotLike\":{\"aws:PrincipalArn\":[\"arn:aws:iam::*:role/aws-reserved/sso.amazonaws.com/AWSReservedSSO_AdministratorAccess_*\",\"arn:aws:iam::*:role/aws-reserved/sso.amazonaws.com/*/AWSReservedSSO_AdministratorAccess_*\",\"arn:aws:iam::*:role/cdk-hnb659fds-*\",\"arn:aws:iam::*:role/GitHubActionsCDKDeploymentRole-*\",\"arn:aws:iam::*:role/GitHubActionsTerraformDeploymentRole-*\"]}},\"Action\":[\"s3:DeleteBucket\",\"s3:DeleteBucketPolicy\",\"s3:DeleteObject\",\"s3:DeleteObjectVersion\",\"s3:DeleteBucketOwnershipControls\",\"s3:DeleteBucketPublicAccessBlock\",\"s3:PutBucketAcl\",\"s3:PutBucketLogging\",\"s3:PutBucketOwnershipControls\",\"s3:PutBucketPolicy\",\"s3:PutBucketPublicAccessBlock\",\"s3:PutBucketVersioning\",\"s3:PutEncryptionConfiguration\",\"s3:PutLifecycleConfiguration\"],\"Resource\":[\"arn:aws:s3:::org-cloudtrail-logs-362055466028\",\"arn:aws:s3:::org-cloudtrail-logs-362055466028/*\"],\"Effect\":\"Deny\",\"Sid\":\"ProtectOrganizationTrailLogBucket\"}]}"
+        }
+      }
+    },
+    {
+      "id": "p-jjcx5w93",
+      "policy": {
+        "Policy": {
+          "PolicySummary": {
+            "Id": "p-jjcx5w93",
+            "Arn": "arn:aws:organizations::362055466028:policy/o-lyy8l75v41/service_control_policy/p-jjcx5w93",
+            "Name": "Deny-Outside-Approved-Regions",
+            "Description": "Deny access to unapproved AWS regions while preserving global control-plane services required for account and identity management.",
+            "Type": "SERVICE_CONTROL_POLICY",
+            "AwsManaged": false
+          },
+          "Content": "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Condition\":{\"StringNotEquals\":{\"aws:RequestedRegion\":[\"us-east-1\",\"us-east-2\",\"us-west-1\",\"us-west-2\"]}},\"Resource\":\"*\",\"Effect\":\"Deny\",\"NotAction\":[\"account:*\",\"aws-portal:*\",\"billing:*\",\"budgets:*\",\"ce:*\",\"chime:*\",\"cloudfront:*\",\"cur:*\",\"directconnect:*\",\"ec2:DescribeRegions\",\"globalaccelerator:*\",\"health:*\",\"iam:*\",\"importexport:*\",\"organizations:*\",\"payments:*\",\"pricing:*\",\"route53:*\",\"route53domains:*\",\"route53-recovery-cluster:*\",\"route53-recovery-control-config:*\",\"route53-recovery-readiness:*\",\"s3:GetAccountPublicAccessBlock\",\"s3:ListAllMyBuckets\",\"s3:PutAccountPublicAccessBlock\",\"shield:*\",\"sts:*\",\"support:*\",\"tax:*\",\"trustedadvisor:*\",\"waf:*\",\"wafv2:*\"],\"Sid\":\"DenyOutsideApprovedRegions\"}]}"
+        }
+      }
+    },
+    {
+      "id": "p-kpx3ijsu",
+      "policy": {
+        "Policy": {
+          "PolicySummary": {
+            "Id": "p-kpx3ijsu",
+            "Arn": "arn:aws:organizations::362055466028:policy/o-lyy8l75v41/service_control_policy/p-kpx3ijsu",
+            "Name": "Protect-Organization-Membership-And-Policies",
+            "Description": "Restrict organization membership and policy administration changes to the designated administrator and deployment paths.",
+            "Type": "SERVICE_CONTROL_POLICY",
+            "AwsManaged": false
+          },
+          "Content": "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Condition\":{\"ArnNotLike\":{\"aws:PrincipalArn\":[\"arn:aws:iam::*:role/aws-reserved/sso.amazonaws.com/AWSReservedSSO_AdministratorAccess_*\",\"arn:aws:iam::*:role/aws-reserved/sso.amazonaws.com/*/AWSReservedSSO_AdministratorAccess_*\",\"arn:aws:iam::*:role/cdk-hnb659fds-*\",\"arn:aws:iam::*:role/GitHubActionsCDKDeploymentRole-*\",\"arn:aws:iam::*:role/GitHubActionsTerraformDeploymentRole-*\"]}},\"Action\":[\"account:CloseAccount\",\"organizations:AcceptHandshake\",\"organizations:AttachPolicy\",\"organizations:CreateAccount\",\"organizations:CreateGovCloudAccount\",\"organizations:CreateOrganization\",\"organizations:CreateOrganizationalUnit\",\"organizations:CreatePolicy\",\"organizations:DeclineHandshake\",\"organizations:DeregisterDelegatedAdministrator\",\"organizations:DeleteOrganization\",\"organizations:DeleteOrganizationalUnit\",\"organizations:DeletePolicy\",\"organizations:DeleteResourcePolicy\",\"organizations:DetachPolicy\",\"organizations:DisableAWSServiceAccess\",\"organizations:EnableAWSServiceAccess\",\"organizations:InviteAccountToOrganization\",\"organizations:LeaveOrganization\",\"organizations:MoveAccount\",\"organizations:PutResourcePolicy\",\"organizations:RegisterDelegatedAdministrator\",\"organizations:RemoveAccountFromOrganization\",\"organizations:UpdateOrganizationalUnit\",\"organizations:UpdatePolicy\"],\"Resource\":\"*\",\"Effect\":\"Deny\",\"Sid\":\"ProtectOrganizationAdministration\"}]}"
+        }
+      }
+    },
+    {
+      "id": "p-l9cqcts8",
+      "policy": {
+        "Policy": {
+          "PolicySummary": {
+            "Id": "p-l9cqcts8",
+            "Arn": "arn:aws:organizations::362055466028:policy/o-lyy8l75v41/service_control_policy/p-l9cqcts8",
+            "Name": "Deny-Calls-Outside-USA",
+            "Description": "",
+            "Type": "SERVICE_CONTROL_POLICY",
+            "AwsManaged": false
+          },
+          "Content": "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Sid\":\"DenyAllOutsideEU\",\"Effect\":\"Deny\",\"Action\":\"*\",\"Resource\":\"*\",\"Condition\":{\"StringNotEquals\":{\"aws:RequestedRegion\":[\"us-east-1\",\"us-east-2\",\"us-west-1\",\"us-west-2\"]}}}]}"
+        }
+      }
+    }
+  ]
+}
