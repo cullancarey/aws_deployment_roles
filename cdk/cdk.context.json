@@ -9,6 +9,28 @@
             "cloudtrail_logs_bucket_name": "org-cloudtrail-logs-362055466028",
             "athena_query_results_bucket_name": "aws-athena-query-results-362055466028-us-east-2",
             "organization_id": "o-lyy8l75v41"
+        },
+        "organization_policies": {
+            "root_id": "r-u85y",
+            "approved_regions": [
+                "us-east-1",
+                "us-east-2",
+                "us-west-1",
+                "us-west-2"
+            ],
+            "admin_permission_set_name": "AdministratorAccess",
+            "legacy_region_policy_id": "p-l9cqcts8",
+            "legacy_region_migration_phase": "observe",
+            "full_aws_access_policy_id": "p-FullAWSAccess",
+            "full_aws_access_detach_target_ids": [
+                "151676528673",
+                "ou-u85y-sfao42dv",
+                "045107234435",
+                "651295191577",
+                "ou-u85y-akfavhg4",
+                "362055466028",
+                "693590665244"
+            ]
         }
     }
 }

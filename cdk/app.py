@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 """Module import for cdk and other required packages"""
+
 import os
 from aws_cdk import App, Tags, Environment
 from cdk.deployment_role_stack_set import DeploymentRolesStackSet
 from cdk.organization_audit_resources_stack import OrganizationAuditResourcesStack
-
+from cdk.organization_policy_guardrails_stack import OrganizationPolicyGuardrailsStack
 
 app = App()
 
@@ -63,6 +64,35 @@ OrganizationAuditResourcesStack(
     cloudtrail_logs_bucket_name=cloudtrail_logs_bucket_name,
     athena_query_results_bucket_name=athena_query_results_bucket_name,
     organization_id=organization_id,
+    env=env,
+)
+
+org_policy_config = environment_config.get("organization_policies", {})
+
+OrganizationPolicyGuardrailsStack(
+    app,
+    construct_id="OrganizationPolicyGuardrailsStack",
+    root_id=org_policy_config.get("root_id"),
+    cloudtrail_trail_name=cloudtrail_trail_name,
+    cloudtrail_logs_bucket_name=cloudtrail_logs_bucket_name,
+    approved_regions=org_policy_config.get(
+        "approved_regions",
+        ["us-east-1", "us-east-2", "us-west-1", "us-west-2"],
+    ),
+    admin_permission_set_name=org_policy_config.get(
+        "admin_permission_set_name",
+        "AdministratorAccess",
+    ),
+    legacy_region_policy_id=org_policy_config.get("legacy_region_policy_id"),
+    legacy_region_migration_phase=org_policy_config.get(
+        "legacy_region_migration_phase",
+        "observe",
+    ),
+    full_aws_access_policy_id=org_policy_config.get("full_aws_access_policy_id"),
+    full_aws_access_detach_target_ids=org_policy_config.get(
+        "full_aws_access_detach_target_ids",
+        [],
+    ),
     env=env,
 )
 
