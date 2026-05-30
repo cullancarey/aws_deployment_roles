@@ -329,7 +329,7 @@ class OrganizationPolicyGuardrailsStack(Stack):
                         physical_resource_id=cr.PhysicalResourceId.of(
                             f"detach-{full_aws_access_policy_id}-{target_id}"
                         ),
-                        ignore_error_codes_matching="PolicyNotAttachedException",
+                        ignore_error_codes_matching="PolicyNotAttachedException|ConstraintViolationException",
                     ),
                     on_update=cr.AwsSdkCall(
                         service="Organizations",
@@ -341,7 +341,7 @@ class OrganizationPolicyGuardrailsStack(Stack):
                         physical_resource_id=cr.PhysicalResourceId.of(
                             f"detach-{full_aws_access_policy_id}-{target_id}"
                         ),
-                        ignore_error_codes_matching="PolicyNotAttachedException",
+                        ignore_error_codes_matching="PolicyNotAttachedException|ConstraintViolationException",
                     ),
                     policy=organizations_api_policy,
                     install_latest_aws_sdk=False,
