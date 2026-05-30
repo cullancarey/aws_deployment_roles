@@ -30,7 +30,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: npm
           cache-dependency-path: cdk/package-lock.json
 
@@ -60,6 +60,10 @@ jobs:
         working-directory: cdk
         run: npx cdk synth
 
-      - name: Deploy Deployment Roles
+      - name: Deploy CDK Stacks
         working-directory: cdk
-        run: npx cdk deploy --app 'cdk.out/' DeploymentRolesStackSet --require-approval never
+        run: >
+          npx cdk deploy --app 'cdk.out/' --require-approval never
+          OrganizationAuditResourcesStack
+          OrganizationPolicyGuardrailsStack
+          DeploymentRolesStackSet
