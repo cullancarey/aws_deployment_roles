@@ -1,9 +1,0 @@
-------------------------------------------------------------------
-|                          ListAccounts                          |
-+--------------+--------------------------------------+----------+
-|  693590665244|  cullan-development                  |  ACTIVE  |
-|  045107234435|  website-production                  |  ACTIVE  |
-|  651295191577|  applenotificationupdate-production  |  ACTIVE  |
-|  362055466028|  cullan-management                   |  ACTIVE  |
-|  151676528673|  NumberGuessingGame                  |  ACTIVE  |
-+--------------+--------------------------------------+----------+
