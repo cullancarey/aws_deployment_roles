@@ -280,6 +280,14 @@ Resources:
                   - "cloudformation:UpdateStack"
                   - "cloudformation:DeleteStack"
                 Resource: "*"
+
+              # SSM Parameter Store access
+              - Effect: Allow
+                Action:
+                  - "ssm:GetParameter"
+                  - "ssm:GetParameters"
+                  - "ssm:GetParametersByPath"
+                Resource: "*"
               
               # IAM PassRole permission for CloudFormation execution
               - Effect: Allow
