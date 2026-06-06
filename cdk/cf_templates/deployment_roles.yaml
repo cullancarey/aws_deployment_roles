@@ -141,6 +141,21 @@ Resources:
                   - "events:ListTagsForResource"
                   - "events:TagResource"
                 Resource: "*"
+
+              # SNS permissions
+              - Effect: Allow
+                Action:
+                  - "sns:CreateTopic"
+                  - "sns:DeleteTopic"
+                  - "sns:GetTopicAttributes"
+                  - "sns:SetTopicAttributes"
+                  - "sns:ListTagsForResource"
+                  - "sns:TagResource"
+                  - "sns:UntagResource"
+                  - "sns:Subscribe"
+                  - "sns:Unsubscribe"
+                  - "sns:ListSubscriptionsByTopic"
+                Resource: "*"
               
               # IAM permissions (for lambda roles/policies/attachments)
               - Effect: Allow
