@@ -88,6 +88,7 @@ Resources:
                   - "logs:DescribeLogGroups"
                   - "logs:DescribeLogStreams"
                   - "logs:TagResource"
+                  - "logs:ListTagsForResource"
                   - "logs:ListTagsLogGroup"
                   - "logs:DeleteLogGroup"
                   - "logs:PutRetentionPolicy"
