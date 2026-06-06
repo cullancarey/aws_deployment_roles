@@ -87,6 +87,10 @@ Resources:
                   - "logs:PutLogEvents"
                   - "logs:DescribeLogGroups"
                   - "logs:DescribeLogStreams"
+                  - "logs:TagResource"
+                  - "logs:ListTagsLogGroup"
+                  - "logs:DeleteLogGroup"
+                  - "logs:PutRetentionPolicy"
                 Resource: "*"
               
               # SSM Parameter Store access
@@ -176,6 +180,9 @@ Resources:
                   - "lambda:DeleteFunction"
                   - "lambda:DeleteLayerVersion"
                   - "lambda:GetEventSourceMapping"
+                  - "lambda:CreateEventSourceMapping"
+                  - "lambda:UpdateEventSourceMapping"
+                  - "lambda:DeleteEventSourceMapping"
                   - "lambda:GetFunctionCodeSigningConfig"
                   - "lambda:GetLayerVersion"
                   - "lambda:GetPolicy"
