@@ -221,6 +221,8 @@ Resources:
                   - "s3:DeleteBucketPolicy"
                   - "s3:PutPublicAccessBlock"
                   - "s3:GetPublicAccessBlock"
+                  - "s3:PutBucketOwnershipControls"
+                  - "s3:GetBucketOwnershipControls"
                   - "s3:PutBucketVersioning"
                   - "s3:GetBucketVersioning"
                   - "s3:PutLifecycleConfiguration"
