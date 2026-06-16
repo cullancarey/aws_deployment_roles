@@ -149,12 +149,25 @@ Resources:
                   - "sns:DeleteTopic"
                   - "sns:GetTopicAttributes"
                   - "sns:SetTopicAttributes"
+                  - "sns:GetSubscriptionAttributes"
+                  - "sns:SetSubscriptionAttributes"
                   - "sns:ListTagsForResource"
                   - "sns:TagResource"
                   - "sns:UntagResource"
                   - "sns:Subscribe"
                   - "sns:Unsubscribe"
                   - "sns:ListSubscriptionsByTopic"
+                Resource: "*"
+
+              # CloudWatch alarm permissions
+              - Effect: Allow
+                Action:
+                  - "cloudwatch:PutMetricAlarm"
+                  - "cloudwatch:DescribeAlarms"
+                  - "cloudwatch:DeleteAlarms"
+                  - "cloudwatch:ListTagsForResource"
+                  - "cloudwatch:TagResource"
+                  - "cloudwatch:UntagResource"
                 Resource: "*"
               
               # IAM permissions (for lambda roles/policies/attachments)
