@@ -167,6 +167,8 @@ Resources:
                   - "iam:CreatePolicy"
                   - "iam:GetPolicy"
                   - "iam:GetPolicyVersion"
+                  - "iam:CreatePolicyVersion"
+                  - "iam:DeletePolicyVersion"
                   - "iam:DeletePolicy"
                   - "iam:AttachRolePolicy"
                   - "iam:DetachRolePolicy"
