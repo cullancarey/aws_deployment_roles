@@ -1,4 +1,4 @@
-from aws_cdk import Stack, CfnOutput
+from aws_cdk import Duration, Stack, CfnOutput
 from aws_cdk import aws_cloudtrail as cloudtrail
 from aws_cdk import aws_iam as iam
 from aws_cdk import aws_s3 as s3
@@ -25,6 +25,19 @@ class OrganizationAuditResourcesStack(Stack):
             block_public_access=s3.BlockPublicAccess.BLOCK_ALL,
             encryption=s3.BucketEncryption.S3_MANAGED,
             object_ownership=s3.ObjectOwnership.BUCKET_OWNER_ENFORCED,
+            lifecycle_rules=[
+                s3.LifecycleRule(
+                    id="TransitionAndExpireLogs",
+                    transitions=[
+                        s3.Transition(
+                            storage_class=s3.StorageClass.GLACIER_INSTANT_RETRIEVAL,
+                            transition_after=Duration.days(90),
+                        )
+                    ],
+                    expiration=Duration.days(365),
+                    abort_incomplete_multipart_upload_after=Duration.days(1),
+                )
+            ],
         )
 
         athena_query_results_bucket = s3.Bucket(
